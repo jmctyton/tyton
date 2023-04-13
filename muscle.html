@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap" rel="stylesheet">
+    <style>
+        div.section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        div.ticker-container {
+            display: flex;
+            font-size: 2.5vw;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: center;
+            width: 8vw;
+            visibility:hidden;
+            /* margin-top: 100%; */
+        }
+
+        div.counter-text {
+            background-color: #F26522;
+            border-radius: 50%;
+            /* padding: 20%; */
+            height: 8vw;
+            width: 8vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* align-items: center; */
+            text-align: center;
+        }
+
+        div.millions {
+            font-size: 1.2vw;
+            font-weight: 600;
+            /* height: calc(8vw * 0.25); */
+            margin-top: -8%;
+        }
+
+        div.counter-caption {
+            font-size: .5em;
+            font-weight: 600;
+        }
+
+        span.plussed {
+            margin-right: -5%;
+        }
+
+        span.plussed::before {
+            content: "+"
+        }
+
+        span.count {
+        padding-right: 4%;
+        }
+
+
+
+        @keyframes slideup {
+            from {
+                margin-top: 300%;
+                /* width: 300%; */
+                opacity: 0;
+            }
+
+            to {
+                margin-top: 0%;
+                /* width: 100%; */
+                opacity: 1;
+            }
+        }
+
+
+        .move-it {
+            animation: slideup 1.2s;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .show-flex {
+            display: flex;
+        }
+
+        div.counter-caption {
+            margin-top: 10%;
+            line-height: 1em;
+            height: 5vh;
+        }
+
+        div.counter-caption > span {
+            font-size: .8em;
+        }
+
+        body {
+        margin: 2rem;
+        background-color: black;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font: 800 3em system-ui;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div style="height: 100vh; background-color: green;"></div>
+        <div class="section" style="height: 50vh;">
+
+            <div class="ticker-container">
+                <div class="counter-text">
+                    <div><span class="plussed"></span><span class="count">20</span></div>
+                    <div class="millions">million</div>
+                </div>
+                <div class="counter-caption">
+                    <span>Gallons Delivered<br>Per Month</span>
+                </div>
+            </div>
+
+            <div class="ticker-container">
+                <div class="counter-text">
+                    <div><span class="plussed"></span><span class="count">140</span></div>
+                    <div class="millions hide">million</div>
+                </div>
+                <div class="counter-caption">
+                    <span>Trucks Available</span>
+                </div>
+            </div>
+
+            <div class="ticker-container">
+                <div class="counter-text">
+                    <div><span class="plussed"></span><span class="count">300</span></div>
+                    <div class="millions hide">million</div>
+                </div>
+                <div class="counter-caption">
+                    <span>Master Service Agreements</span>
+                </div>
+            </div>
+
+            <div class="ticker-container">
+                <div class="counter-text">
+                    <div><span class="plussed"></span><span class="count">2.2</span></div>
+                    <div class="millions">million</div>
+                </div>
+                <div class="counter-caption">
+                    <span>Gallons of Fuel<br>Storage Capacity</span>
+                </div>
+            </div>
+
+            <div class="ticker-container">
+                <div class="counter-text">
+                    <div><span class="plussed"></span><span class="count">2000</span></div>
+                    <div class="millions hide">million</div>
+                </div>
+                <div class="counter-caption">
+                    <span>Tanks in<br>the Field</span>
+                </div>
+            </div>
+
+        </div>
+        <div style="height: 100vh; background-color: red;"></div>
+    </div>
+    <script>
+
+        /* For Observer */
+        const tickerTexts = document.querySelectorAll('.ticker-container');
+
+        /* For Counter */
+        const animationDuration = 4000;
+        const frameDuration = 1000/60;
+        const totalFrames = Math.round( animationDuration / frameDuration);
+        const easeOutQuad = t => t * ( 2 - t );
+
+        const animateCountUp = el => {
+            let frame = 0;
+            const countTo = parseInt( el.innerHTML, 10 );
+            const counter = setInterval( () => {
+                frame++;
+                const progress = easeOutQuad( frame / totalFrames );
+                const currentCount = Math.round( countTo * progress );
+
+                if ( parseInt( el.innerHTML, 10 ) !== currentCount ) {
+                    el.innerHTML = currentCount;
+                }
+
+                if ( frame === totalFrames ) {
+                    clearInterval( counter );
+                }
+            }, frameDuration );
+        };
+
+        const tickerObeserver = new IntersectionObserver(tickers => {
+            tickers.forEach(ticker => {
+                if (ticker.isIntersecting) {
+                    tickerTexts.forEach((ticker, i) => {
+                        setTimeout(() => {
+                            ticker.style.visibility = 'visible';
+                            ticker.classList.add('move-it');
+                        }, i * 120);
+                    });
+                }
+            });
+        });
+
+        const runAnimations = () => {
+            console.log("here");
+	        const countupEls = document.querySelectorAll( '.count' );
+	        countupEls.forEach( animateCountUp );
+        };
+
+        runAnimations();
+        tickerObeserver.observe(document.querySelector('.section'));
+
+
+    </script>
+</body>
+</html>
