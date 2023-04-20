@@ -37,6 +37,15 @@
             }
         }
 
+        @keyframes spin2 {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100%) rotate(240deg);
+            }
+        }
+
         div.section {
             display: flex;
             flex-direction: row;
@@ -75,7 +84,7 @@
             outline: 0;
             overflow: hidden;
             -webkit-text-stroke: .5px #662303;
-    -webkit-text-fill-color: white;
+            -webkit-text-fill-color: white;
 
         }
 
@@ -89,7 +98,15 @@
             box-sizing: border-box;
             background-color: #fff;
             border-radius: 40%;
+
+        }
+
+        div.counter-text.odd::after {
             animation: spin 7s linear infinite;
+        }
+
+        div.counter-text.even::after {
+            animation: spin2 6s linear infinite;
         }
 
         .fill-it {
@@ -348,7 +365,7 @@
         <div class="section" style="height: 50vh; overflow: hidden;">
 
             <div class="ticker-container">
-                <div class="counter-text">
+                <div class="counter-text odd">
                     <div class="drops">
                         <div class="drop1"></div>
                         <div class="drop2"></div>
@@ -370,7 +387,7 @@
             </div>
 
             <div class="ticker-container">
-                <div class="counter-text">
+                <div class="counter-text even">
                     <div class="drops">
                         <div class="drop1"></div>
                         <div class="drop2"></div>
@@ -392,7 +409,7 @@
             </div>
 
             <div class="ticker-container">
-                <div class="counter-text">
+                <div class="counter-text odd">
                     <div class="drops">
                         <div class="drop1"></div>
                         <div class="drop2"></div>
@@ -414,7 +431,7 @@
             </div>
 
             <div class="ticker-container">
-                <div class="counter-text">
+                <div class="counter-text even">
                     <div class="drops">
                         <div class="drop1"></div>
                         <div class="drop2"></div>
@@ -436,7 +453,7 @@
             </div>
 
             <div class="ticker-container">
-                <div class="counter-text">
+                <div class="counter-text odd">
                     <div class="drops">
                         <div class="drop1"></div>
                         <div class="drop2"></div>
@@ -444,6 +461,7 @@
                     <div class="number"><span class="plussed"></span><span class="count">2000</span></div>
                     <div class="millions hide">million</div>
                 </div>
+
                 <svg class="liquid-svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <defs>
                     <filter id="liquid">
