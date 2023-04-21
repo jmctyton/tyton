@@ -30,20 +30,27 @@
 
         @keyframes spin {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(600px) rotate(0deg);
             }
             100% {
-                transform: translateY(-100%) rotate(360deg);
+                transform: translateY(0) rotate(360deg);
             }
         }
 
         @keyframes spin2 {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(600px) rotate(0deg);
             }
             100% {
-                transform: translateY(-100%) rotate(240deg);
+                transform: translateY(0) rotate(240deg);
             }
+        }
+
+        h1.title {
+            font-size: 4vw;
+            text-align: center;
+            font-weight: 500;
+            color: #F26522;
         }
 
         div.section {
@@ -86,12 +93,15 @@
             -webkit-text-stroke: .5px #662303;
             -webkit-text-fill-color: white;
 
+            /* transform: rotate(-30deg); */
+
         }
 
         div.counter-text::after {
             content: "";
             position: absolute;
-            bottom: -50%;
+            top: -600px;
+            /* bottom: -50%; */
             left: -50%;
             height: 200%;
             width: 200%;
@@ -102,11 +112,11 @@
         }
 
         div.counter-text.odd::after {
-            animation: spin 7s linear infinite;
+            animation: spin 9s linear 1;
         }
 
         div.counter-text.even::after {
-            animation: spin2 6s linear infinite;
+            animation: spin2 8s linear 1;
         }
 
         .fill-it {
@@ -360,7 +370,7 @@
 
 
     <div class="app-container">
-        <h1 class="title" style="text-align: center; margin-bottom: 0; color: #F26522;">Rolfson Muscle</h1>
+        <h1 class="title">Rolfson Muscle</h1>
         <!-- <div style="height: 100vh; background-color: green;"></div> -->
         <div class="section" style="height: 50vh; overflow: hidden;">
 
